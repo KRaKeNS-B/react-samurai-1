@@ -12,3 +12,7 @@ img{
   grid-gap: 10px;
   width: 1200px;
 }
+.app-wrapper-content {
+  grid-area: c;
+  background-color: cornflowerblue;
+}
