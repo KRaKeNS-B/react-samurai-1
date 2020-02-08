@@ -5,12 +5,13 @@ import Post from './Post/Post';
 const MyPosts = () => {
   let postsData = [
     { id: '1', message: `Hi, how are you?`, likesCount: '11'},
-    { id: '1', message: `It's my first post`, likesCount: '23'},
+    { id: '2', message: `It's my first post`, likesCount: '23'},
   ]
   let postsElements = postsData.map( post =>
     <Post
       message={post.message}
       likesCount={post.likesCount}
+      id={post.id}
       key={post.id}
     />
   )
