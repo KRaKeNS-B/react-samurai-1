@@ -1,17 +1,13 @@
 import React from 'react'
 import styles from './Users.module.css'
-import * as axios from 'axios'
 import userPhoto from '../../assets/images/user.png'
 
 let Users = (props) => {
+  let pagesCount = Math.ceil(props.usersTotalCount / props.pageSize)
 
-  if (props.users.length === 0) {
-
-    axios.get('https://social-network.samuraijs.com/api/1.0/users')
-      .then(response => {
-        props.setUsers(response.data.items)
-      })
-
+  let pages = []
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i)
   }
 
   let usersElements = props.users.map( user =>
@@ -49,6 +45,17 @@ let Users = (props) => {
   )
 
   return <div>
+    <div>
+      { pages.map( pageN => {
+        return (
+          <span
+            className={ props.currentPage === pageN && styles.currentPage }
+            onClick={ () => props.onPageChanged(pageN) }
+          >
+            { pageN }
+          </span>
+      )})}
+    </div>
     { usersElements }
   </div>
 }
