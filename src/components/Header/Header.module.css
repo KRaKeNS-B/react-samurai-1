@@ -5,3 +5,9 @@
 .header img {
   max-height: 100%;
 }
+.loginBlock {
+  float: right;
+}
+.loginBlock a {
+  color: white;
+}
