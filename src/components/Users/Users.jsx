@@ -80,7 +80,9 @@ let Users = (props) => {
 
   return <div>
     <div>
-      { pages.map( pageN => {
+      { pages.filter( pageN => {
+        return (pageN <= props.currentPage + 10 && pageN >= props.currentPage - 10) || pageN === pagesCount || pageN === 1
+      }).map( pageN => {
         return (
           <span
             className={ props.currentPage === pageN ? styles.currentPage : undefined }
@@ -88,6 +90,7 @@ let Users = (props) => {
             key={ pageN }
           >
             { pageN }
+            { pageN === pagesCount ? '' : ' ' }
           </span>
       )})}
     </div>
