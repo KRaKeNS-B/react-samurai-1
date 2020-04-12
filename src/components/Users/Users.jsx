@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Users.module.css'
 import userPhoto from '../../assets/images/user.png'
 import { NavLink } from 'react-router-dom'
-import Axios from 'axios'
+import { usersAPI } from '../../api/api'
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.usersTotalCount / props.pageSize)
@@ -27,28 +27,18 @@ let Users = (props) => {
         <div>
           { user.followed
             ? <button onClick={ () => {
-              Axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                withCredentials: true,
-                headers: {
-                  'API-KEY': 'b7b61a1f-cfd6-43d9-8a8f-04bd565996dd',
-                },
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
+              usersAPI.unfollow(user.id)
+                .then(data => {
+                  if (data.resultCode === 0) {
                     props.unfollow(user.id)
                   }
                 })
 
             } } >Unfollow</button>
             : <button onClick={ () => {
-              Axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                withCredentials: true,
-                headers: {
-                  'API-KEY': 'b7b61a1f-cfd6-43d9-8a8f-04bd565996dd',
-                },
-              })
-                .then(response => {
-                  if (response.data.resultCode === 0) {
+              usersAPI.follow(user.id)
+                .then(data => {
+                  if (data.resultCode === 0) {
                     props.follow(user.id)
                   }
                 })
@@ -81,7 +71,7 @@ let Users = (props) => {
   return <div>
     <div>
       { pages.filter( pageN => {
-        return (pageN <= props.currentPage + 10 && pageN >= props.currentPage - 10) || pageN === pagesCount || pageN === 1
+        return (pageN <= props.currentPage + 5 && pageN >= props.currentPage - 5) || pageN === pagesCount || pageN === 1
       }).map( pageN => {
         return (
           <span
