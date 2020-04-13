@@ -15,7 +15,7 @@ export const usersAPI = {
   },
 
   follow(userId) {
-    return axiosInstance.post(`follow/${userId}`, {})
+    return axiosInstance.post(`follow/${userId}`)
       .then(response => response.data)
   },
 
@@ -23,4 +23,8 @@ export const usersAPI = {
     return axiosInstance.delete(`follow/${userId}`)
       .then(response => response.data)
   },
+  
+  getUserProfile(userId) {
+    return axiosInstance.get(`profile/${userId}`)
+  }
 }
