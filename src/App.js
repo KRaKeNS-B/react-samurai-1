@@ -27,14 +27,13 @@ const App = (props) => {
           path='/users'
           render={ () => <UsersContainer /> }
         />
-        />
         <Route
           path='/login'
           render={ () => <Login /> }
         />
       </div>
     </div>
-);
+  );
 }
 
 export default App;
