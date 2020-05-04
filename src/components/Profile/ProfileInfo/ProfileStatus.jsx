@@ -3,6 +3,7 @@ import classes from './ProfileInfo.module.css'
 
 const ProfileStatus = (props) => {
   const [editMode, setEditMode] = useState(false)
+  const [status, setStatus] = useState(props.status)
 
   const activateEditMode = () => {
     setEditMode(true)
@@ -10,17 +11,22 @@ const ProfileStatus = (props) => {
 
   const deactivateEditMode = () => {
     setEditMode(false)
+    props.updateStatus(status)
+  }
+
+  const onStatusChange = (event) => {
+    setStatus(event.currentTarget.value)
   }
 
   return (
     <div>
       {!editMode ?
         <div>
-          <span onDoubleClick={activateEditMode} >{props.status}</span>
+          <span onDoubleClick={activateEditMode} >{props.status || '---------'}</span>
         </div>
       :
         <div>
-          <input autoFocus={true} onBlur={deactivateEditMode} value={props.status} />
+          <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status} />
         </div>
       }
     </div>
