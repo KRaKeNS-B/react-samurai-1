@@ -26,9 +26,9 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: {userId, email, login, isAuth} })
 
-export const authUser = () => {
+export const getAuthUserData = () => {
   return (dispatch) => {
-    authAPI.authUser()
+    return authAPI.authUser()
       .then(data => {
         if (data.resultCode === 0) {
           let {id, email, login} = data.data
@@ -43,7 +43,7 @@ export const login = (email, password, rememberMe) => {
     authAPI.login(email, password, rememberMe)
       .then(data => {
         if (data.resultCode === 0) {
-          dispatch(authUser())
+          dispatch(getAuthUserData())
         } else {
           let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
           dispatch(stopSubmit('login', {_error: message}))

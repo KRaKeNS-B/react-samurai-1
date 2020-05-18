@@ -54,5 +54,5 @@ let mapDispatchToProps = {
 
 export default compose (
   connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect
+  // withAuthRedirect
 ) (UsersContainer)
