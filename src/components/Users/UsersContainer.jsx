@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { follow, unfollow, requestUsers} from '../../redux/usersReduser'
+import { follow, unfollow, requestUsers} from '../../redux/users-reduser'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
 import { compose } from 'redux'
-import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/usersSelectors'
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors'
 
 class UsersContainer extends React.Component {
 
