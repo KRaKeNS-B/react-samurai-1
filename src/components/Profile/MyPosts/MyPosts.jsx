@@ -6,7 +6,7 @@ import { requiredField, maxLengthCreator } from '../../../utils/validators/valid
 import { Textarea } from '../../common/FormsControls/FormsControls'
 
 
-const MyPosts = props => {
+const MyPosts = React.memo(props => {
   let postsElements = props.posts.map( post =>
     <Post
       message={post.message}
@@ -29,7 +29,7 @@ const MyPosts = props => {
       </div>
     </div>
   )
-}
+})
 
 const maxLength10 = maxLengthCreator(10)
 
