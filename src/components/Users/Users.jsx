@@ -20,6 +20,7 @@ let Users = ({currentPage, usersTotalCount, pageSize, onPageChanged, users, foll
       itemsTotalCount={usersTotalCount}
       pageSize={pageSize}
       onPageChanged={onPageChanged}
+      pagesOffset={5}
     />
     <div>
       { usersElements }
