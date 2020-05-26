@@ -9,9 +9,9 @@ import styles from '../common/FormsControls/FormsControls.module.css'
 
 const maxLength20 = maxLengthCreator(20)
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
 
-  return <form onSubmit={props.handleSubmit} >
+  return <form onSubmit={handleSubmit} >
     <div>
       <Field
         placeholder={'Email'}
@@ -40,7 +40,7 @@ const LoginForm = (props) => {
       </label>
     </div>
     {
-      props.error && <div className={styles.formSummaryError}>{props.error}</div>
+      error && <div className={styles.formSummaryError}>{error}</div>
     }
     <div>
       <button>Login</button>
@@ -52,12 +52,12 @@ const LoginReduxForm = reduxForm({
   form: 'login'
 }) (LoginForm)
 
-const Login = (props) => {
+const Login = ({login, isAuth}) => {
   const onSubmit = ({email, password, rememberMe}) => {
-    props.login(email, password, rememberMe)
+    login(email, password, rememberMe)
   }
 
-  if (props.isAuth) {
+  if (isAuth) {
     return <Redirect to='/profile' />
   }
 

@@ -1,79 +1,29 @@
 import React from 'react'
-import styles from './Users.module.css'
-import userPhoto from '../../assets/images/user.png'
-import { NavLink } from 'react-router-dom'
+import Paginator from '../common/Paginator/Paginator'
+import User from './User'
 
-let Users = (props) => {
-  let pagesCount = Math.ceil(props.usersTotalCount / props.pageSize)
+let Users = ({currentPage, usersTotalCount, pageSize, onPageChanged, users, followingInProgress, follow, unfollow}) => {
 
-  let pages = []
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
-  }
-
-  let usersElements = props.users.map( user =>
-    <div key={ user.id }>
-      <span>
-        <div>
-          <NavLink to={ '/profile/' + user.id }>
-            <img
-              src={ user.photos.small != null ? user.photos.small : userPhoto }
-              alt="Ava"
-              className={ styles.userPhoto }
-            />
-          </NavLink>
-        </div>
-        <div>
-          { user.followed
-            ? <button disabled={props.followingInProgress
-              .some(id => id === user.id)} onClick={ () => {
-                props.unfollow(user.id)
-              } } >Unfollow</button>
-            : <button disabled={props.followingInProgress
-              .some(id => id === user.id)} onClick={ () => {
-                props.follow(user.id)
-              } } >Follow</button>
-          }
-        </div>
-      </span>
-      <span>
-        <span>
-          <div>
-            { user.name }
-          </div>
-          <div>
-            { user.status }
-          </div>
-        </span>
-        <span>
-          <div>
-            { "user.location.city" }
-          </div>
-          <div>
-            { "user.location.country" }
-          </div>
-        </span>
-      </span>
-    </div>
+  let usersElements = users.map( user =>
+    <User
+      key={ user.id }
+      user={user}
+      followingInProgress={followingInProgress}
+      follow={follow}
+      unfollow={unfollow}
+    />
   )
 
   return <div>
+    <Paginator
+      currentPage={currentPage}
+      itemsTotalCount={usersTotalCount}
+      pageSize={pageSize}
+      onPageChanged={onPageChanged}
+    />
     <div>
-      { pages.filter( pageN => {
-        return (pageN <= props.currentPage + 5 && pageN >= props.currentPage - 5) || pageN === pagesCount || pageN === 1
-      }).map( pageN => {
-        return (
-          <span
-            className={ props.currentPage === pageN ? styles.currentPage : undefined }
-            onClick={ () => props.onPageChanged(pageN) }
-            key={ pageN }
-          >
-            { pageN }
-            { pageN === pagesCount ? '' : ' ' }
-          </span>
-      )})}
+      { usersElements }
     </div>
-    { usersElements }
   </div>
 }
 

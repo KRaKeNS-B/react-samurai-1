@@ -1,21 +1,18 @@
 import React from 'react';
-import classes from './ProfileInfo.module.css'
+import styles from './ProfileInfo.module.css'
 import Preloader from '../../common/Preloader/Preloader'
 import ProfileStatus from './ProfileStatus';
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({profile, status, updateStatus}) => {
+  if (!profile) {
     return <Preloader />
   }
 
   return (
     <div>
-      {/* <div>
-        <img src="https://openimagedenoise.github.io/images/moana_16spp_oidn.jpg" alt="" />
-      </div> */}
-      <div className={classes.descriptionBlock} >
-        <img src={ props.profile.photos.large } alt="" />
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+      <div className={styles.descriptionBlock} >
+        <img src={ profile.photos.large } alt="" />
+        <ProfileStatus status={status} updateStatus={updateStatus} />
       </div>
     </div>
   )
