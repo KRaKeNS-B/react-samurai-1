@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, BrowserRouter } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { initializeApp } from './redux/app-reduser';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
+import store from './redux/redux-store'
 
 const App = (props) => {
   useEffect(() => {
@@ -56,8 +57,17 @@ const mapDispatchToProps = {
   initializeApp,
 }
 
-
-export default compose(
+const AppContainer = compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 ) (App)
+
+const MainApp = () => {
+  return <BrowserRouter>
+    <Provider store={ store } >
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+}
+
+export default MainApp
