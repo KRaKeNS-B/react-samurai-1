@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import classes from './ProfileInfo.module.css'
 
-const ProfileStatus = ({updateStatus, status: incomingStatus}) => {
+const ProfileStatus = ({updateStatus, status: incomingStatus, isOwner}) => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(incomingStatus)
 
@@ -10,7 +10,9 @@ const ProfileStatus = ({updateStatus, status: incomingStatus}) => {
   }, [incomingStatus])
 
   const activateEditMode = () => {
-    setEditMode(true)
+    if (isOwner) {
+      setEditMode(true)
+    }
   }
 
   const deactivateEditMode = () => {
