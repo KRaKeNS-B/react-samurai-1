@@ -26,14 +26,11 @@ const ProfileStatus = ({updateStatus, status: incomingStatus, isOwner}) => {
 
   return (
     <div>
+      <b>Status</b>{`: `}
       {!editMode ?
-        <div>
-          <span onDoubleClick={activateEditMode} >{status || '---------'}</span>
-        </div>
+        <span onDoubleClick={activateEditMode} >{status || '---------'}</span>
       :
-        <div>
-          <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status} />
-        </div>
+        <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status} />
       }
     </div>
   )

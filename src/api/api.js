@@ -43,7 +43,11 @@ export const profileAPI = {
         'Content-Type': 'multipart/form-data'
       }
     })
-  }
+  },
+  saveProfile(profile) {
+    return axiosInstance.put(`profile`, profile)
+      .then(response => response.data)
+  },
 }
 
 export const authAPI = {
