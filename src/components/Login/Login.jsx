@@ -9,7 +9,7 @@ import styles from '../common/FormsControls/FormsControls.module.css'
 
 const maxLength20 = maxLengthCreator(20)
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
 
   return <form onSubmit={handleSubmit} >
     <div>
@@ -39,6 +39,16 @@ const LoginForm = ({handleSubmit, error}) => {
         remember me
       </label>
     </div>
+
+    { captchaUrl && <img src="captchaUrl" alt=""/> }
+    { captchaUrl && <Field
+        placeholder={'Symbols from image'}
+        name={'captcha'}
+        component={Input}
+        validate={[requiredField]}
+      />
+    }
+
     {
       error && <div className={styles.formSummaryError}>{error}</div>
     }
@@ -52,9 +62,9 @@ const LoginReduxForm = reduxForm({
   form: 'login'
 }) (LoginForm)
 
-const Login = ({login, isAuth}) => {
-  const onSubmit = ({email, password, rememberMe}) => {
-    login(email, password, rememberMe)
+const Login = ({login, isAuth, captchaUrl}) => {
+  const onSubmit = ({email, password, rememberMe, captcha}) => {
+    login(email, password, rememberMe, captcha)
   }
 
   if (isAuth) {
@@ -63,13 +73,14 @@ const Login = ({login, isAuth}) => {
 
   return <div>
     <h1>LOGIN</h1>
-    <LoginReduxForm onSubmit={onSubmit} />
+    <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
   </div>
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl,
   }
 }
 
