@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { Route, withRouter, BrowserRouter } from 'react-router-dom';
+import { Route, withRouter, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -30,22 +30,32 @@ const App = (props) => {
       <HeaderContainer />
       <Navbar />
       <div className='app-wrapper-content'>
-        <Route
-          path='/dialogs'
-          render={ withSuspense(DialogsContainer) }
-        />
-        <Route
-          path='/profile/:userId?'
-          render={ withSuspense(ProfileContainer) }
-        />
-        <Route
-          path='/users'
-          render={ () => <UsersContainer /> }
-        />
-        <Route
-          path='/login'
-          render={ () => <Login /> }
-        />
+        <Switch>
+          <Route
+            exact path='/'
+            render={ () => <Redirect to='/profile' /> }
+          />
+          <Route
+            path='/dialogs'
+            render={ withSuspense(DialogsContainer) }
+          />
+          <Route
+            path='/profile/:userId?'
+            render={ withSuspense(ProfileContainer) }
+          />
+          <Route
+            path='/users'
+            render={ () => <UsersContainer /> }
+          />
+          <Route
+            path='/login'
+            render={ () => <Login /> }
+          />
+          <Route
+            path='*'
+            render={ () => <div>404 PAGE NOT FOUND</div> }
+          />
+        </Switch>
       </div>
     </div>
   );

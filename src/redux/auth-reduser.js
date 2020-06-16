@@ -2,7 +2,7 @@ import { authAPI, securityAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA'
-const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS'
+const SET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/SET_CAPTCHA_URL_SUCCESS'
 
 let initialState = {
   userId: null,
@@ -15,7 +15,7 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_DATA:
-    case GET_CAPTCHA_URL_SUCCESS:
+    case SET_CAPTCHA_URL_SUCCESS:
       return {
         ...state,
         ...action.data,
@@ -33,7 +33,7 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 })
 
 export const setCaptchaUrlSuccess = (captchaUrl) => ({
-  type: GET_CAPTCHA_URL_SUCCESS,
+  type: SET_CAPTCHA_URL_SUCCESS,
   data: {captchaUrl}
 })
 
